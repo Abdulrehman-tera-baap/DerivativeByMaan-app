@@ -1,0 +1,21 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'com.maan.derivativecalculator'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'com.maan.derivativecalculator'
+        minSdk 23
+        targetSdk 35
+        versionCode 1
+        versionName '1.0'
+        externalNativeBuild {
+            cmake { cppFlags '-std=c11' }
+        }
+    }
+
+    externalNativeBuild {
+        cmake { path 'src/main/cpp/CMakeLists.txt' }
+    }
+}
