@@ -94,6 +94,7 @@ public class MainActivity extends Activity {
         Button calculate=button("Calculate derivative"); card.addView(calculate);
         polyFormula=text("Example: 4x³ + 3x + 2  →  12x² + 3",14,purple,true);
         polyFormula.setPadding(2,12,2,4); card.addView(polyFormula);
+        polyResult=resultView(); card.addView(polyResult);
         calculate.setOnClickListener(v->calculatePolynomial());
     }
     private void buildFunctions(LinearLayout card) {
@@ -152,7 +153,7 @@ public class MainActivity extends Activity {
             double value=standardDerivative(choice,x);
             String[] rules={"d/dx sin(x) = cos(x)","d/dx cos(x) = −sin(x)","d/dx tan(x) = sec²(x)","d/dx eˣ = eˣ","d/dx ln(x) = 1/x","d/dx sqrt(x) = 1/(2√x)"};
             standardFormula.setText(rules[choice-1]);
-            showResult("Derivative at x = "+fmt(x)+"\nResult = "+String.format(Locale.US,"%.8f",value));
+            showResult("Derivative at x = "+fmt(x)+"\nResult = "+String.format(Locale.US,"%.8f",value), funcResult);
         } catch(Exception ex) { error(ex.getMessage()==null?"Check your inputs.":ex.getMessage()); }
     }
     private String fmt(double d) { return String.format(Locale.US,"%g",d); }
