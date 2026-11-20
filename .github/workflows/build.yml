@@ -15,14 +15,16 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - uses: android-actions/setup-android@v3
-
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 8.9
 
       - name: Install Android SDK parts
-        run: sdkmanager "platforms;android-35" "build-tools;35.0.0" "cmake;3.22.1" "ndk;26.1.10909125"
+        run: |
+          SDKM=$(ls -d $ANDROID_HOME/cmdline-tools/*/bin/sdkmanager | head -1)
+          echo "Using $SDKM"
+          yes | $SDKM --licenses > /dev/null || true
+          $SDKM "platforms;android-35" "build-tools;35.0.0" "cmake;3.22.1" "ndk;26.1.10909125"
 
       - name: Build debug APK
         run: gradle assembleDebug --no-daemon
